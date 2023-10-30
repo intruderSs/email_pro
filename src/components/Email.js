@@ -1,67 +1,47 @@
 import React, { useState } from 'react';
-import fs from 'fs'; // For file system operations (e.g., reading the .eml file)
-import { MailParser } from 'mailparser';
 
-function EmailLinkExtractor() {
-  const [attachedLinks, setAttachedLinks] = useState([]);
+function Email() {
+    const [links, setLinks] = useState([]);
 
-  // Function to extract attached links from the email
-  function extractAttachedLinks(email) {
-    const attachedLinks = [];
-
-    // Process each attachment in the email
-    email.attachments.forEach((attachment) => {
-      const data = attachment.content.toString();
-      attachedLinks.push(data);
-    });
-
-    return attachedLinks;
-  }
-
-  // Function to handle file input and extraction
-  function handleFileInputChange(event) {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
 
-    if (!file) {
-      return;
+      reader.onload = async (e) => {
+        const emailContent = e.target.result;
+
+        // Call a function to extract links from the email content
+        const extractedLinks = extractLinksFromEmail(emailContent);
+        setLinks(extractedLinks);
+      };
+
+      reader.readAsText(file);
     }
+  };
 
-    // Read the selected .eml file
-    const reader = new FileReader();
+  const extractLinksFromEmail = (emailContent) => {
+    // Use regular expressions to extract links from the email content
+    const linkRegex = /https?:\/\/[^\s<>"]+/g;
+    const extractedLinks = emailContent.match(linkRegex) || [];
 
-    reader.onload = async () => {
-      const emlData = reader.result;
-
-      // Parse the .eml file
-      const mailparser = new MailParser();
-
-      mailparser.on('end', (email) => {
-        const attachedLinks = extractAttachedLinks(email);
-        setAttachedLinks(attachedLinks);
-      });
-
-      mailparser.write(emlData);
-      mailparser.end();
-    };
-
-    reader.readAsArrayBuffer(file);
-  }
+    return extractedLinks;
+  };
 
   return (
     <div>
-      <input type="file" accept=".eml" onChange={handleFileInputChange} />
-      {attachedLinks.length > 0 && (
-        <div>
-          <h3>Attached Links:</h3>
-          <ul>
-            {attachedLinks.map((link, index) => (
-              <li key={index}>{link}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <input type="file" accept=".eml" onChange={handleFileChange} />
+      <ul>
+        {links.map((link, index) => (
+          <li key={index}>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {link}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default EmailLinkExtractor;
+export default Email;

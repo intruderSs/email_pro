@@ -11,3 +11,93 @@
     background-image: url("https://www.transparenttextures.com/patterns/cardboard-flat.png");
     padding: 0;
   }
+
+  .skill-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 25px 20px;
+    margin: auto;
+  }
+
+  .certificate-card {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px
+                  rgba(0, 0, 0, 0.22);
+                  border-radius: 10px;
+  }
+
+  .skill-content h6 {
+    font-size: 15px;
+  }
+  
+  .skill-content ul {
+    display: flex;
+    padding: 7px;
+    border: 1px solid #a6a6a6;
+    border-radius: 5px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+  }
+  .skill-content ul li {
+    list-style: none;
+    margin: 4px 3px;
+    font-size: 20px;
+    background: #1798c1;
+    color: #4D4D4D;
+    border-radius: 5px;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #1798c1;
+  }
+  
+  .skill-content ul li i {
+    height: 20px;
+    width: 15px;
+    font-size: 20px;
+    border-radius: 50%;
+    margin-left: 8px;
+    justify-content: center;
+    cursor: pointer;
+    color: #CDF5FD;
+  }
+  
+  .skill-content ul li i:hover {
+    color: #A0E9FF;
+  }
+  
+  .skill-content ul input {
+    flex: 1;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .edit-component {
+    align-items: center;
+    margin: auto;
+  }
+
+  .skill-nav .nav-pills{
+    border-radius: 20px;
+    background-color: #4D4D4D;
+  }
+
+  .skill-wrapper :where(.title, li, li i, .skill-details) {
+    display: flex;
+    align-items: center;
+  }
+  
+  .skill-wrapper .skill-details {
+    justify-content: space-between;
+  }
+  
+  .skill-details p {
+    font-size: 18px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .acceptance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
